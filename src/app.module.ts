@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import enviroments from './enviroments';
 import config, { validationSchema } from './config';
 import { AnimesModule } from './animes/animes.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AnimesModule } from './animes/animes.module';
       validationSchema,
     }),
     AnimesModule,
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

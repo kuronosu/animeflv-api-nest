@@ -3,22 +3,24 @@ import * as Joi from 'joi';
 
 export default registerAs('config', () => {
   return {
-    database: {
-      username: process.env.DATABASE_USERNAME,
-      password: process.env.DATABASE_PASSWORD,
-      host: process.env.DATABASE_HOST,
-      port: process.env.DATABASE_PORT,
-      name: process.env.DATABASE_NAME,
+    mongo: {
+      host: process.env.MONGO_HOST,
+      port: process.env.MONGO_PORT,
+      name: process.env.MONGO_DB,
+      connection: process.env.MONGO_CONNECTION,
+      user: process.env.MONGO_INITDB_ROOT_USERNAME,
+      password: process.env.MONGO_INITDB_ROOT_PASSWORD,
     },
     tokenValue: process.env.TOKEN_VALUE,
   };
 });
 
 export const validationSchema = Joi.object({
+  MONGO_HOST: Joi.string().required(),
+  MONGO_PORT: Joi.number().required(),
+  MONGO_DB: Joi.string().required(),
+  MONGO_CONNECTION: Joi.string().required(),
+  MONGO_INITDB_ROOT_USERNAME: Joi.string().required(),
+  MONGO_INITDB_ROOT_PASSWORD: Joi.string().required(),
   TOKEN_VALUE: Joi.string(),
-  DATABASE_USERNAME: Joi.string(),
-  DATABASE_PASSWORD: Joi.string(),
-  DATABASE_HOST: Joi.string().required(),
-  DATABASE_PORT: Joi.number(),
-  DATABASE_NAME: Joi.string().required(),
 });
