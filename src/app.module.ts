@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import enviroments from './enviroments';
 import config, { validationSchema } from './config';
+import { AnimesModule } from './animes/animes.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import config, { validationSchema } from './config';
       load: [config],
       validationSchema,
     }),
+    AnimesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
