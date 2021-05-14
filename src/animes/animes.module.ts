@@ -12,6 +12,7 @@ import { GenresService } from './services/genres.service';
 import { LatestEpisodesController } from './controllers/latest-episodes.controller';
 import { LatestEpisodesService } from './services/latest-episodes.service';
 import { LatestEpisode, LatestEpisodeSchema } from './entities';
+import Type, { TypeSchema } from './entities/type.entity';
 
 @Module({
   imports: [
@@ -19,6 +20,10 @@ import { LatestEpisode, LatestEpisodeSchema } from './entities';
       {
         name: LatestEpisode.name,
         schema: LatestEpisodeSchema,
+      },
+      {
+        name: Type.name,
+        schema: TypeSchema,
       },
     ]),
   ],
