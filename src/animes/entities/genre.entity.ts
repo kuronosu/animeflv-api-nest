@@ -1,3 +1,7 @@
+import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import Generic from './generic.entity';
 
-export default class Genre extends Generic {}
+@Schema()
+export class Genre extends Generic {}
+
+export const GenreSchema = SchemaFactory.createForClass(Genre);

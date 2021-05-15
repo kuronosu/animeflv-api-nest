@@ -11,8 +11,16 @@ import { GenresController } from './controllers/genres.controller';
 import { GenresService } from './services/genres.service';
 import { LatestEpisodesController } from './controllers/latest-episodes.controller';
 import { LatestEpisodesService } from './services/latest-episodes.service';
-import { LatestEpisode, LatestEpisodeSchema } from './entities';
-import Type, { TypeSchema } from './entities/type.entity';
+import {
+  LatestEpisode,
+  LatestEpisodeSchema,
+  Type,
+  TypeSchema,
+  Genre,
+  GenreSchema,
+  State,
+  StateSchema,
+} from './entities';
 
 @Module({
   imports: [
@@ -24,6 +32,14 @@ import Type, { TypeSchema } from './entities/type.entity';
       {
         name: Type.name,
         schema: TypeSchema,
+      },
+      {
+        name: Genre.name,
+        schema: GenreSchema,
+      },
+      {
+        name: State.name,
+        schema: StateSchema,
       },
     ]),
   ],

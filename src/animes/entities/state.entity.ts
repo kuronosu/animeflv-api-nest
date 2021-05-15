@@ -1,3 +1,7 @@
+import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import Generic from './generic.entity';
 
-export default class State extends Generic {}
+@Schema()
+export class State extends Generic {}
+
+export const StateSchema = SchemaFactory.createForClass(State);
