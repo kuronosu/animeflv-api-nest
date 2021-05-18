@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import GenericQuerysService from 'src/utils/generc-querys.service';
-import Type from '../entities/type.entity';
+import { Type } from '../entities';
 
 @Injectable()
 export class TypesService extends GenericQuerysService<Type> {
