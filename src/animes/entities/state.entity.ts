@@ -1,7 +1,10 @@
-import { Schema, SchemaFactory } from '@nestjs/mongoose';
-import Generic from './generic.entity';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import transformId from 'src/utils/id_transform';
 
 @Schema()
-export class State extends Generic {}
+export class State {
+  @Prop({ type: Number}) _id: number;
+  @Prop({ required: true }) name: string;
+}
 
-export const StateSchema = SchemaFactory.createForClass(State);
+export const StateSchema = transformId(SchemaFactory.createForClass(State));

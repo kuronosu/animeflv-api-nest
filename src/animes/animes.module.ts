@@ -20,6 +20,8 @@ import {
   GenreSchema,
   State,
   StateSchema,
+  Anime,
+  AnimeSchema,
 } from './entities';
 
 @Module({
@@ -40,6 +42,10 @@ import {
       {
         name: State.name,
         schema: StateSchema,
+      },
+      {
+        name: Anime.name,
+        schema: AnimeSchema,
       },
     ]),
   ],

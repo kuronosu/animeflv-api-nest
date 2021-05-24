@@ -1,9 +1,11 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-import Generic from './generic.entity';
+export class AnimeLatest {
+  @Prop({ type: Number }) id: number;
+  @Prop({ required: true }) name: string;
+}
 
-export class AnimeLatest extends Generic {}
 export const AnimeLatestSchema = SchemaFactory.createForClass(AnimeLatest);
 
 @Schema({ collection: 'latestEpisodes' })
@@ -11,7 +13,15 @@ export class LatestEpisode extends Document {
   @Prop({ required: true }) url: string;
   @Prop({ required: true }) image: string;
   @Prop({ required: true }) capi: string;
-  @Prop({ type: AnimeLatestSchema, required: true }) anime: AnimeLatest;
+  @Prop({ type: AnimeLatestSchema }) anime: AnimeLatest;
 }
 
 export const LatestEpisodeSchema = SchemaFactory.createForClass(LatestEpisode);
+
+LatestEpisodeSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret, options) => {
+    delete ret.__v;
+    delete ret._id;
+  },
+});
