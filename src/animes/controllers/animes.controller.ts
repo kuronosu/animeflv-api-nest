@@ -9,8 +9,8 @@ export class AnimesController {
   @Get()
   async get(@Query('deep') deep: string = "true") {
     const results = await (deep == "true"
-      ? this.service.findAllPopulated()
-      : this.service.findAll());
-    return results[1];
+      ? this.service.findAllPopulated({flvid: 3453})
+      : this.service.findAll({flvid: 3453}));
+    return results[0];
   }
 }

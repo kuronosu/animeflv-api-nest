@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import GenericQuerysService from 'src/utils/generc-querys.service';
+import GenericQuerysService from 'src/common/generc-querys.service';
 import { LatestEpisode } from '../entities';
 
 @Injectable()

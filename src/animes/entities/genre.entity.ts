@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import transformId from 'src/utils/id_transform';
+import { transformId } from 'src/common/transforms';
 
 @Schema()
 export class Genre {

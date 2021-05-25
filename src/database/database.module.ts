@@ -17,6 +17,8 @@ import config from 'src/config';
           user,
           pass: password,
           dbName: name,
+          useCreateIndex: true,
+          useUnifiedTopology: true,
         };
       },
       inject: [config.KEY],

@@ -12,7 +12,7 @@ export default class GenericQuerysService<T> {
     return document;
   }
 
-  async findAll() {
-    return await this.model.find().exec();
+  async findAll(query={}) {
+    return await this.model.find(query).exec();
   }
 }

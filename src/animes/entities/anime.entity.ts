@@ -3,7 +3,8 @@ import { Types } from 'mongoose';
 
 import { Type } from './type.entity';
 import { State } from './state.entity';
-import { Genre, GenreSchema } from './genre.entity';
+import { Genre } from './genre.entity';
+import { hideId } from 'src/common/transforms';
 
 @Schema()
 export class Relation {
@@ -24,7 +25,7 @@ export const EpisodeSchema = SchemaFactory.createForClass(Episode);
 
 @Schema()
 export class Anime {
-  @Prop({ required: true })
+  @Prop({ required: true, index: true, unique: true, type: Number })
   flvid: number;
   @Prop({ required: true })
   name: string;
@@ -58,4 +59,4 @@ export class Anime {
   episodes: Types.Array<Episode>;
 }
 
-export const AnimeSchema = SchemaFactory.createForClass(Anime);
+export const AnimeSchema = hideId(SchemaFactory.createForClass(Anime));
