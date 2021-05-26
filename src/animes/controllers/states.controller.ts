@@ -2,11 +2,14 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
+import { MongoExceptionFilter } from 'src/common/mongo-exception-filter';
 import { CreateStateDto, UpdateStateDto } from '../dtos/generic.dto';
 import { StatesService } from '../services/states.service';
 
@@ -25,15 +28,21 @@ export class StatesController {
   }
 
   @Post()
-  create(@Body() payload: CreateStateDto) {
-    return this.service.create(payload);
+  @UseFilters(MongoExceptionFilter)
+  async create(@Body() payload: CreateStateDto) {
+    const res = await this.service.create(payload);
+    if (!res) throw new NotFoundException();
+    return res;
   }
 
   @Put(':id')
-  update(
+  @UseFilters(MongoExceptionFilter)
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateStateDto,
   ) {
-    return this.service.update(id, payload);
+    const res = await this.service.update(id, payload);
+    if (!res) throw new NotFoundException();
+    return res;
   }
 }

@@ -27,18 +27,13 @@ export class GenericQuerysService<
   UpdateDto,
 > extends ReadOnlyGenericQuerysService<T> {
   async create(data: CreateDto) {
-    const newDocument = new this.model(data);
-    return await newDocument.save();
+    return await new this.model(data).save();
   }
 
   async update(id: ID, data: UpdateDto) {
-    const doc = await this.model
+    return await this.model
       // @ts-ignore : This works, believe me
       .findByIdAndUpdate(id, { $set: data }, { new: true })
       .exec();
-    if (!doc) {
-      throw new NotFoundException(`Brand #${id} not found`);
-    }
-    return doc;
   }
 }

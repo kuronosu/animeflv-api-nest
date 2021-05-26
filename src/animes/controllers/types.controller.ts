@@ -2,11 +2,14 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
+import { MongoExceptionFilter } from 'src/common/mongo-exception-filter';
 import { CreateTypeDto, UpdateTypeDto } from '../dtos/generic.dto';
 import { TypesService } from '../services/types.service';
 
@@ -25,15 +28,21 @@ export class TypesController {
   }
 
   @Post()
+  @UseFilters(MongoExceptionFilter)
   async create(@Body() payload: CreateTypeDto) {
-    return await this.service.create(payload);
+    const res = await this.service.create(payload);
+    if (!res) throw new NotFoundException();
+    return res;
   }
 
   @Put(':id')
-  update(
+  @UseFilters(MongoExceptionFilter)
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateTypeDto,
   ) {
-    return this.service.update(id, payload);
+    const res = await this.service.update(id, payload);
+    if (!res) throw new NotFoundException();
+    return res;
   }
 }
