@@ -9,14 +9,12 @@ export function isObject(o: any) {
 }
 
 export function isPlainObject(o: any) {
-  var ctor, prot;
-
   if (isObject(o) === false) return false;
   // If has modified constructor
-  ctor = o.constructor;
+  const ctor = o.constructor;
   if (ctor === undefined) return true;
   // If has modified prototype
-  prot = ctor.prototype;
+  const prot = ctor.prototype;
   if (isObject(prot) === false) return false;
   // If constructor does not have an Object-specific method
   if (prot.hasOwnProperty('isPrototypeOf') === false) {
@@ -36,7 +34,7 @@ export function defaultSortFn(a: any, b: any) {
 
 export function deepSort(data: any, sortFn = defaultSortFn) {
   function _deepSort(src: any) {
-    var out: any;
+    let out: any;
     if (Array.isArray(src)) {
       return src.sort(sortFn).map((item) => _deepSort(item));
     }
@@ -77,17 +75,3 @@ export default function normalizedJsonHash({
     .update(JSON.stringify(deepSort(json, sortFun)))
     .digest(encoding);
 }
-
-function sortFun(a: any, b: any): number {
-  if (typeof a === 'string') return a.localeCompare(b);
-  if (typeof a === 'number' && typeof b === 'number') return a - b;
-  if (typeof a === 'object' && typeof b === 'object') {
-    if (a.hasOwnProperty('name') && b.hasOwnProperty('name'))
-      return a.name.localeCompare(b.name);
-    if (a.hasOwnProperty('number') && b.hasOwnProperty('number'))
-      return a.number - b.number;
-  }
-  return 0;
-}
-
-// normalizedJsonHash({ json: {}, sortFun });

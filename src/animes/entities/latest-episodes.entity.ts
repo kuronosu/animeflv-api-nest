@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export class AnimeLatest {
@@ -20,7 +20,7 @@ export const LatestEpisodeSchema = SchemaFactory.createForClass(LatestEpisode);
 
 LatestEpisodeSchema.set('toJSON', {
   virtuals: true,
-  transform: (doc, ret, options) => {
+  transform: (_: any, ret: any) => {
     delete ret.__v;
     delete ret._id;
   },

@@ -33,7 +33,7 @@ export class GenericQuerysService<
 
   async update(id: ID, data: UpdateDto) {
     const doc = await this.model
-      // @ts-ignore
+      // @ts-ignore : This works, believe me
       .findByIdAndUpdate(id, { $set: data }, { new: true })
       .exec();
     if (!doc) {

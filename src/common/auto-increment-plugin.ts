@@ -3,14 +3,14 @@ import { Connection, Schema } from 'mongoose';
 import * as AutoIncrementFactory from 'mongoose-sequence';
 
 export const withAutoIncrementIdPlugin = (
-  cls: Function,
+  name: string,
   schema: Schema<any>,
 ) => ({
-  name: cls.name,
+  name: name,
   useFactory: async (connection: Connection) => {
     const AutoIncrement = AutoIncrementFactory(connection);
     schema.plugin(AutoIncrement, {
-      id: `${cls.name}_id_seq`,
+      id: `${name}_id_seq`,
       start_seq: 0,
     });
     return schema;

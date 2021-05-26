@@ -36,9 +36,9 @@ export class Anime {
   @Prop({ required: true })
   url: string;
   @Prop({ required: true, type: Number, ref: State.name })
-  state: State | Number;
+  state: State | number;
   @Prop({ required: true, type: Number, ref: Type.name })
-  type: Type | Number;
+  type: Type | number;
   @Prop({ type: [{ type: Number, ref: Genre.name }] })
   genres: Types.Array<Genre>;
   @Prop()

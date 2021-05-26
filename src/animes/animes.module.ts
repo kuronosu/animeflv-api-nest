@@ -38,9 +38,9 @@ import { withAutoIncrementIdPlugin } from 'src/common/auto-increment-plugin';
       },
     ]),
     MongooseModule.forFeatureAsync([
-      withAutoIncrementIdPlugin(Type, TypeSchema),
-      withAutoIncrementIdPlugin(Genre, GenreSchema),
-      withAutoIncrementIdPlugin(State, StateSchema),
+      withAutoIncrementIdPlugin(Type.name, TypeSchema),
+      withAutoIncrementIdPlugin(Genre.name, GenreSchema),
+      withAutoIncrementIdPlugin(State.name, StateSchema),
     ]),
   ],
   controllers: [
