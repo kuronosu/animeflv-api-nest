@@ -9,9 +9,9 @@ import {
   UseFilters,
 } from '@nestjs/common';
 
-import { CreateGenericDto, UpdateGenericDto } from '../animes/dtos/generic.dto';
-import { MongoExceptionFilter } from './mongo-exception-filter';
-import { GenericQuerysService } from './generc-querys.service';
+import { CreateGenericDto, UpdateGenericDto } from '../dtos/generic.dto';
+import { MongoExceptionFilter } from '../../common/mongo-exception-filter';
+import { GenericQuerysService } from '../services/generic.service';
 
 export class GenricEntityController<
   GenericEntity,

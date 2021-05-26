@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ReadOnlyGenericQuerysService } from 'src/common/generc-querys.service';
+import { ReadOnlyGenericQuerysService } from 'src/animes/services/generic.service';
 import { Anime } from '../entities';
 
 @Injectable()
