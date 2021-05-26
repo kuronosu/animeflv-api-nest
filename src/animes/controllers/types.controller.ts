@@ -2,11 +2,14 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
-import { CreateTypeDto } from '../dtos/generic.dto';
+import { CreateTypeDto, UpdateTypeDto } from '../dtos/generic.dto';
 import { TypesService } from '../services/types.service';
 
 @Controller('types')
@@ -26,5 +29,13 @@ export class TypesController {
   @Post()
   async create(@Body() payload: CreateTypeDto) {
     return await this.service.create(payload);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateTypeDto,
+  ) {
+    return this.service.update(id, payload);
   }
 }

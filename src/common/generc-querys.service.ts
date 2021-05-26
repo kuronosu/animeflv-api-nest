@@ -1,10 +1,12 @@
 import { NotFoundException } from '@nestjs/common';
 import { FilterQuery, Model, ObjectId } from 'mongoose';
 
+type ID = number | string | ObjectId;
+
 export class ReadOnlyGenericQuerysService<T> {
   constructor(protected model: Model<T>) {}
 
-  async findOneById(id: number | string | ObjectId) {
+  async findOneById(id: ID) {
     try {
       const document = await this.model.findById(id).exec();
       if (document) {
@@ -29,9 +31,14 @@ export class GenericQuerysService<
     return await newDocument.save();
   }
 
-  update(data: UpdateDto) {}
-
-  async findAll(query = {}) {
-    return await this.model.find(query).exec();
+  async update(id: ID, data: UpdateDto) {
+    const doc = await this.model
+      // @ts-ignore
+      .findByIdAndUpdate(id, { $set: data }, { new: true })
+      .exec();
+    if (!doc) {
+      throw new NotFoundException(`Brand #${id} not found`);
+    }
+    return doc;
   }
 }
