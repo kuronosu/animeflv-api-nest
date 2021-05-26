@@ -33,6 +33,7 @@
     "joi": "^17.4.0",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.8",
+    "mongoose-sequence": "^5.3.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",

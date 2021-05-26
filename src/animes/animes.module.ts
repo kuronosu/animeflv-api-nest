@@ -23,6 +23,7 @@ import {
   Anime,
   AnimeSchema,
 } from './entities';
+import { withAutoIncrementIdPlugin } from 'src/common/auto-increment-plugin';
 
 @Module({
   imports: [
@@ -32,21 +33,14 @@ import {
         schema: LatestEpisodeSchema,
       },
       {
-        name: Type.name,
-        schema: TypeSchema,
-      },
-      {
-        name: Genre.name,
-        schema: GenreSchema,
-      },
-      {
-        name: State.name,
-        schema: StateSchema,
-      },
-      {
         name: Anime.name,
         schema: AnimeSchema,
       },
+    ]),
+    MongooseModule.forFeatureAsync([
+      withAutoIncrementIdPlugin(Type, TypeSchema),
+      withAutoIncrementIdPlugin(Genre, GenreSchema),
+      withAutoIncrementIdPlugin(State, StateSchema),
     ]),
   ],
   controllers: [

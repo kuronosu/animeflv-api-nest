@@ -19,6 +19,7 @@ import config from 'src/config';
           dbName: name,
           useCreateIndex: true,
           useUnifiedTopology: true,
+          useFindAndModify: false,
         };
       },
       inject: [config.KEY],
