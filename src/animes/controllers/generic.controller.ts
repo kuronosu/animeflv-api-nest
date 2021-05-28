@@ -11,17 +11,13 @@ import {
 
 import { CreateGenericDto, UpdateGenericDto } from '../dtos/generic.dto';
 import { MongoExceptionFilter } from '../../common/mongo-exception-filter';
-import { GenericQuerysService } from '../services/generic.service';
+import {
+  GenericQuerysService,
+  ReadOnlyQuerysService,
+} from '../services/generic.service';
 
-export class GenricEntityController<
-  GenericEntity,
-  Service extends GenericQuerysService<
-    GenericEntity,
-    CreateGenericDto,
-    UpdateGenericDto
-  >,
-> {
-  constructor(protected service: Service) {}
+export class ReadOnlyEntityController<Entity> {
+  constructor(protected service: ReadOnlyQuerysService<Entity>) {}
 
   @Get()
   getAll() {
@@ -29,16 +25,29 @@ export class GenricEntityController<
   }
 
   @Get(':id')
-  getOne(@Param('id', ParseIntPipe) id: number) {
-    return this.service.findOneById(id);
+  async getOne(@Param('id', ParseIntPipe) id: number) {
+    const doc = await this.service.findOneById(id);
+    if (!doc) throw new NotFoundException();
+    return doc;
+  }
+}
+
+export class GenricEntityController<
+  Entity,
+  Service extends GenericQuerysService<
+    Entity,
+    CreateGenericDto,
+    UpdateGenericDto
+  >,
+> extends ReadOnlyEntityController<Entity> {
+  constructor(protected service: Service) {
+    super(service);
   }
 
   @Post()
   @UseFilters(MongoExceptionFilter)
   async create(@Body() payload: CreateGenericDto) {
-    const res = await this.service.create(payload);
-    if (!res) throw new NotFoundException();
-    return res;
+    return await this.service.create(payload);
   }
 
   @Put(':id')

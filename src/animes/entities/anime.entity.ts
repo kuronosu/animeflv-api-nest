@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
+import { Types, Document } from 'mongoose';
 
 import { Type } from './type.entity';
 import { State } from './state.entity';
@@ -24,7 +24,7 @@ export class Episode {
 export const EpisodeSchema = SchemaFactory.createForClass(Episode);
 
 @Schema()
-export class Anime {
+export class Anime extends Document {
   @Prop({ required: true, index: true, unique: true, type: Number })
   flvid: number;
   @Prop({ required: true })

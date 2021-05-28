@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+@Schema()
 export class AnimeLatest {
   @Prop({ type: Number }) id: number;
   @Prop({ required: true }) name: string;
@@ -19,9 +20,10 @@ export class LatestEpisode extends Document {
 export const LatestEpisodeSchema = SchemaFactory.createForClass(LatestEpisode);
 
 LatestEpisodeSchema.set('toJSON', {
-  virtuals: true,
+  virtuals: false,
   transform: (_: any, ret: any) => {
     delete ret.__v;
     delete ret._id;
+    delete ret.anime._id;
   },
 });

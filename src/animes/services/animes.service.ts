@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ReadOnlyGenericQuerysService } from 'src/animes/services/generic.service';
+import { ReadOnlyQuerysService } from 'src/animes/services/generic.service';
 import { Anime } from '../entities';
 
 @Injectable()
-export class AnimesService extends ReadOnlyGenericQuerysService<Anime> {
+export class AnimesService extends ReadOnlyQuerysService<Anime> {
   constructor(@InjectModel(Anime.name) model: Model<Anime>) {
     super(model);
   }

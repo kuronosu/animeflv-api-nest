@@ -1,20 +1,25 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ReadOnlyGenericQuerysService } from 'src/animes/services/generic.service';
+
+import { GenericQuerysService } from './generic.service';
 import { LatestEpisode } from '../entities';
+import {
+  CreateLatestEpisodeDto,
+  UpdateLatestEpisodeDto,
+} from '../dtos/latest.dto';
 
 @Injectable()
-export class LatestEpisodesService extends ReadOnlyGenericQuerysService<LatestEpisode> {
+export class LatestEpisodesService extends GenericQuerysService<
+  LatestEpisode,
+  CreateLatestEpisodeDto,
+  UpdateLatestEpisodeDto
+> {
   constructor(@InjectModel(LatestEpisode.name) model: Model<LatestEpisode>) {
     super(model);
   }
 
-  async findOne(index: number) {
-    const episode = (await this.model.find().exec())[index];
-    if (!episode) {
-      throw new NotFoundException(`Latest episode #${index} not found`);
-    }
-    return episode;
+  async findOneByIndex(index: number) {
+    return (await this.findAll())[index];
   }
 }

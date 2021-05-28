@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { GenricEntityController } from 'src/animes/controllers/generic.controller';
+import { GenricEntityController } from './generic.controller';
 import { State } from '../entities';
 import { StatesService } from '../services/states.service';
 

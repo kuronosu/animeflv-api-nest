@@ -3,7 +3,7 @@ import { FilterQuery, Model, ObjectId } from 'mongoose';
 
 type ID = number | string | ObjectId;
 
-export class ReadOnlyGenericQuerysService<T> {
+export class ReadOnlyQuerysService<T> {
   constructor(protected model: Model<T>) {}
 
   async findOneById(id: ID) {
@@ -12,8 +12,9 @@ export class ReadOnlyGenericQuerysService<T> {
       if (document) {
         return document;
       }
-    } catch (error) {}
-    throw new NotFoundException();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async findAll(query: FilterQuery<T> = {}) {
@@ -25,7 +26,7 @@ export class GenericQuerysService<
   T,
   CreateDto,
   UpdateDto,
-> extends ReadOnlyGenericQuerysService<T> {
+> extends ReadOnlyQuerysService<T> {
   async create(data: CreateDto) {
     return await new this.model(data).save();
   }
