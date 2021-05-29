@@ -8,6 +8,7 @@ import {
   CreateLatestEpisodeDto,
   UpdateLatestEpisodeDto,
 } from '../dtos/latest.dto';
+import { MongoError } from 'mongodb';
 
 @Injectable()
 export class LatestEpisodesService extends GenericQuerysService<
@@ -21,5 +22,12 @@ export class LatestEpisodesService extends GenericQuerysService<
 
   async findOneByIndex(index: number) {
     return (await this.findAll())[index];
+  }
+
+  async bulkCreate(payload: CreateLatestEpisodeDto[]) {
+    const { ok, deletedCount } = await this.model.deleteMany().exec();
+    if (!ok)
+      throw new MongoError('Could not delete the previous latest episodes');
+    return await this.model.insertMany(payload);
   }
 }

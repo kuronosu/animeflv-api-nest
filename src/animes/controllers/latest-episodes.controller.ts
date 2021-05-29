@@ -1,9 +1,11 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
   NotFoundException,
   Param,
+  ParseArrayPipe,
   ParseIntPipe,
   Post,
   Put,
@@ -13,10 +15,7 @@ import {
 import { ReadOnlyEntityController } from './generic.controller';
 import { LatestEpisode } from '../entities';
 import { LatestEpisodesService } from '../services/latest-episodes.service';
-import {
-  CreateLatestEpisodeDto,
-  UpdateLatestEpisodeDto,
-} from '../dtos/latest.dto';
+import { CreateLatestEpisodeDto } from '../dtos/latest.dto';
 import { MongoExceptionFilter } from 'src/common/mongo-exception-filter';
 
 @Controller('latest')
@@ -37,11 +36,16 @@ export class LatestEpisodesController extends ReadOnlyEntityController<LatestEpi
 
   @Post()
   @UseFilters(MongoExceptionFilter)
-  async create(@Body() payload: CreateLatestEpisodeDto) {
-    return await this.service.create(payload);
+  async replace(
+    @Body(new ParseArrayPipe({ items: CreateLatestEpisodeDto }))
+    payload: CreateLatestEpisodeDto[],
+  ) {
+    if (payload.length !== 20)
+      throw new BadRequestException('Body length must be 20 elements');
+    return await this.service.bulkCreate(payload);
   }
 
-/*
+  /*
   @Put(':id')
   @UseFilters(MongoExceptionFilter)
   async update(
