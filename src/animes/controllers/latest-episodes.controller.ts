@@ -8,7 +8,6 @@ import {
   ParseArrayPipe,
   ParseIntPipe,
   Post,
-  Put,
   UseFilters,
 } from '@nestjs/common';
 
@@ -44,17 +43,4 @@ export class LatestEpisodesController extends ReadOnlyEntityController<LatestEpi
       throw new BadRequestException('Body length must be 20 elements');
     return await this.service.bulkCreate(payload);
   }
-
-  /*
-  @Put(':id')
-  @UseFilters(MongoExceptionFilter)
-  async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateLatestEpisodeDto,
-  ) {
-    const res = await this.service.update(id, payload);
-    if (!res) throw new NotFoundException();
-    return res;
-  }
-*/
 }

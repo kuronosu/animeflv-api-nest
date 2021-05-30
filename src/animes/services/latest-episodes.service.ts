@@ -25,7 +25,7 @@ export class LatestEpisodesService extends GenericQuerysService<
   }
 
   async bulkCreate(payload: CreateLatestEpisodeDto[]) {
-    const { ok, deletedCount } = await this.model.deleteMany().exec();
+    const { ok } = await this.model.deleteMany().exec();
     if (!ok)
       throw new MongoError('Could not delete the previous latest episodes');
     return await this.model.insertMany(payload);

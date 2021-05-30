@@ -1,4 +1,3 @@
-import { NotFoundException } from '@nestjs/common';
 import { FilterQuery, Model, ObjectId } from 'mongoose';
 
 type ID = number | string | ObjectId;
