@@ -31,13 +31,13 @@ export class Anime extends Document {
   name: string;
   @Prop({ required: true })
   slug: string;
-  @Prop({ name: 'nextepisodedate' })
+  @Prop({ name: 'nextepisodedate', required: false })
   nextEpisodeDate: string;
   @Prop({ required: true })
   url: string;
-  @Prop({ required: true, type: Number, ref: State.name })
+  @Prop({ type: Number, ref: State.name, min: 0 })
   state: State | number;
-  @Prop({ required: true, type: Number, ref: Type.name })
+  @Prop({ type: Number, ref: Type.name, min: 0 })
   type: Type | number;
   @Prop({ type: [{ type: Number, ref: Genre.name }] })
   genres: Types.Array<Genre>;
@@ -49,10 +49,8 @@ export class Anime extends Document {
   score: number;
   @Prop()
   votes: number;
-  @Prop()
-  cover: string;
-  @Prop()
-  banner: string;
+  // cover: string;  "/uploads/animes/covers/<flvid>.jpg"
+  // banner: string; "/uploads/animes/banners/<flvid>.jpg"
   @Prop({ type: [RelationSchema] })
   relations: Types.Array<Relation>;
   @Prop({ type: [EpisodeSchema] })

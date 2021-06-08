@@ -15,7 +15,7 @@ export class MongoExceptionFilter implements ExceptionFilter {
 
     switch (exception.code) {
       case 11000:
-        const key = exception?.message?.split('.')[1]?.split(' ')[0];
+        const key = exception?.message?.split('{ ')[1]?.split(':')[0].trim();
         return response
           .status(HttpStatus.UNPROCESSABLE_ENTITY)
           .json(
