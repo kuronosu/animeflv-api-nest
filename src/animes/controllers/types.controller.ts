@@ -14,10 +14,4 @@ export class TypesController extends GenricEntityController<
   constructor(service: TypesService) {
     super(service);
   }
-
-  @Post()
-  @UseFilters(MongoExceptionFilter)
-  async create(@Body() payload: CreateGenericDto) {
-    return await this.service.create(payload);
-  }
 }
