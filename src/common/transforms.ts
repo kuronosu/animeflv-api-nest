@@ -1,6 +1,9 @@
 import { Schema } from 'mongoose';
 
-export function transformId(schema: Schema) {
+export function transformId(schema: Schema, numericId = true) {
+  schema.virtual('id').get(function () {
+    return numericId ? parseInt(this._id) : `${this._id}`;
+  });
   schema.set('toJSON', {
     virtuals: true,
     versionKey: false,
